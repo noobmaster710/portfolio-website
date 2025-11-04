@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pratick Khadka – Aspiring Security Professional</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        /* -------------------------------------------------
+           Global Reset & Base
+        ------------------------------------------------- */
+        *, *::before, *::after { box-sizing: border-box; }
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+        }
+        a { color: inherit; text-decoration: none; }
+
+        /* -------------------------------------------------
+           Layout
+        ------------------------------------------------- */
+        header {
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(12px);
+            padding: 1.8rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            text-align: center;
+        }
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #00ffff;
+        }
+        .logo span { font-size: 0.9rem; opacity: 0.7; }
+        nav {
+            margin-top: 1rem;
+        }
+        nav a {
+            color: #00ffff;
+            margin: 0 1rem;
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            transition: color .3s;
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -6px;
+            left: 50%;
+            background: #00ffff;
+            transition: width .3s, left .3s;
+        }
+        nav a:hover { color: #fff; }
+        nav a:hover::after { width: 100%; left: 0; }
+
+        main { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
+        section { padding: 4rem 0; }
+
+        h2 {
+            font-size: 2.2rem;
+            color: #00ffff;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+        h2::after {
+            content: '';
+            width: 80px;
+            height: 3px;
+            background: #00ffff;
+            display: block;
+            margin: 0.8rem auto 0;
+        }
+
+        /* -------------------------------------------------
+           Cards – Glassmorphism
+        ------------------------------------------------- */
+        .card {
+            background: rgba(20,20,20,0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid #333;
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            transition: transform .3s, box-shadow .3s, border-color .3s;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,255,255,0.15);
+            border-color: #00ffff;
+        }
+
+        /* -------------------------------------------------
+           Buttons
+        ------------------------------------------------- */
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #00ffff, #0099cc);
+            color: #000;
+            padding: .9rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            transition: all .3s;
+            box-shadow: 0 4px 12px rgba(0,255,255,.3);
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 18px rgba(0,255,255,.4);
+        }
+        .btn-sm {
+            font-size: .9rem;
+            padding: .6rem 1.2rem;
+            margin-top: .5rem;
+        }
+
+        /* -------------------------------------------------
+           Grid Layouts
+        ------------------------------------------------- */
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
+        .skill-item {
+            background: rgba(0,0,0,0.4);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #444;
+        }
+        .skill-img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: .8rem;
+            border: 1px solid #00ffff;
+            box-shadow: 0 0 12px rgba(0,255,255,.2);
+        }
+
+        /* -------------------------------------------------
+           Contact Icons
+        ------------------------------------------------- */
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            font-size: 1.1rem;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: .6rem 0;
+            transition: background .3s;
+        }
+        .contact-item:hover { background: rgba(0,255,255,.08); border-radius: 8px; }
+        .contact-item i { color: #00ffff; width: 22px; text-align: center; }
+
+        /* -------------------------------------------------
+           ABOUT – Photo + Short Bio
+        ------------------------------------------------- */
+        .about-card {
+            display: flex;
+            justify-content: center;
+            padding: 3rem 2rem;
+        }
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            max-width: 900px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .photo-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+        }
+        .profile-photo {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            transition: transform .4s ease;
+        }
+        .photo-container:hover .profile-photo {
+            transform: scale(1.08);
+        }
+        .photo-glow {
+            position: absolute;
+            top: -12px; left: -12px;
+            width: 184px; height: 184px;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            background: conic-gradient(#00ffff, #0099cc, #00ffff);
+            opacity: 0.4;
+            animation: pulse 4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(1.05); opacity: 0.6; }
+        }
+        .bio {
+            flex: 1;
+            min-width: 300px;
+            text-align: left;
+        }
+        .bio h3 {
+            color: #00ffff;
+            margin: 0 0 .5rem;
+            font-size: 1.4rem;
+        }
+
+        /* -------------------------------------------------
+           PROJECTS
+        ------------------------------------------------- */
+        .project-card h3 {
+            color: #00ffff;
+            margin-top: 0;
+            font-size: 1.3rem;
+        }
+        .tech-tags {
+            margin: 1rem 0;
+        }
+        .tag {
+            display: inline-block;
+            background: rgba(0, 255, 255, 0.1);
+            color: #00ffff;
+            font-size: .8rem;
+            padding: .3rem .7rem;
+            border-radius: 20px;
+            margin-right: .5rem;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        /* -------------------------------------------------
+           CERTIFICATIONS
+        ------------------------------------------------- */
+        .cert-item {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            padding: 1.2rem;
+            background: rgba(0, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 12px;
+            transition: all .3s ease;
+        }
+        .cert-item:hover {
+            background: rgba(0, 255, 255, 0.08);
+            border-color: #00ffff;
+            transform: translateX(8px);
+        }
+        .cert-icon {
+            width: 50px;
+            height: 50px;
+            background: #00ffff;
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .cert-details h4 {
+            margin: 0 0 .3rem;
+            color: #00ffff;
+            font-size: 1.1rem;
+        }
+        .cert-details p {
+            margin: 0;
+            font-size: .95rem;
+            color: #ccc;
+        }
+        .cert-details small {
+            color: #888;
+            font-size: .85rem;
+        }
+
+        /* -------------------------------------------------
+           Footer
+        ------------------------------------------------- */
+        footer {
+            background: #0a0a0a;
+            text-align: center;
+            padding: 2rem;
+            font-size: .9rem;
+            color: #666;
+        }
+
+        /* -------------------------------------------------
+           Mobile Menu
+        ------------------------------------------------- */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #00ffff;
+            font-size: 1.6rem;
+            cursor: pointer;
+        }
+
+        /* -------------------------------------------------
+           Responsive
+        ------------------------------------------------- */
+        @media (max-width: 768px) {
+            nav { display: none; flex-direction: column; background: #0a0a0a; position: absolute; top: 100%; left: 0; width: 100%; padding: 1rem 0; }
+            nav.active { display: flex; }
+            nav a { margin: .6rem 0; padding: .6rem 1rem; text-align: center; }
+            .menu-toggle { display: block; }
+
+            .logo { font-size: 1.9rem; }
+            h2 { font-size: 1.9rem; }
+            .card { padding: 2rem; }
+            .about-content { flex-direction: column; text-align: center; }
+            .bio { text-align: center; }
+            .cert-item { flex-direction: column; text-align: center; }
+            .cert-icon { margin-bottom: .5rem; }
+        }
+        @media (max-width: 480px) {
+            .btn { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="menu-toggle" id="mobile-menu">Menu</div>
+    <div class="logo">Pratick Khadka <span>(Noobmaster)</span></div>
+    <nav id="main-nav">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#resume">CV</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<main>
+
+<!-- ==================== ABOUT (Photo + Short Bio) ==================== -->
+<section id="about">
+    <h2>About Me</h2>
+    <div class="card about-card">
+        <div class="about-content">
+            <div class="bio">
+                <h3 style="text-align: center;">Security Professional</h3>
+                <p>
+                    I am a Cybersecurity and Networking enthusiast who loves diving deep into systems to find what is hiding under the surface. My main focus is on Vulnerability Assessment, Web Application, and Network Penetration Testing. I enjoy uncovering weaknesses, learning new attack paths, and helping teams strengthen their defenses while sharpening my own skills every day.
+                </p>
+                <p style="font-size: .95rem; color: #aaa; margin-top: 1rem;">
+                    <em style="text-align: center;">"Trust issues? I call it cybersecurity awareness.”"</em>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== PROJECTS ==================== -->
+<section id="projects">
+    <h2>Projects</h2>
+    <div class="grid grid-2">
+        <div class="card project-card">
+            <h3>CLI Web Based Reconnaissance Tool</h3>
+            <p><strong>Automated Web Reconassiance</strong></p>
+            <p>Python-based Tool for Recon of Web Application for Subdomains, Portscanning, SQLi testing and Enumeration.</p>
+            <div class="tech-tags">
+                <span class="tag">Python</span>
+                <span class="tag">Amass</span>
+                <span class="tag">Nmap</span>
+            </div>
+        </div>
+
+        <div class="card project-card">
+            <h3>CSRF Report and Prevention</h3>
+            <p><strong>Portswigger</strong></p>
+            <p>Used Portswigger to identify CrossSite Request Forgery and Prevention Strategics.</p>
+            <div class="tech-tags">
+                <span class="tag">Burpsuite</span>
+            </div>
+            
+        </div>
+
+        <div class="card project-card">
+            <h3>Malware Analysis</h3>
+            <p><strong>Analysis Malware using static and dyanimc analysis</strong></p>
+            <p>Used Ghidra, Wireshark, Virustotal, and Cuckoo Sandbox for Malware analysis.</p>
+            <div class="tech-tags">
+                <span class="tag">Ghidra</span>
+                <span class="tag">Wireshark</span>
+            </div>
+        </div>
+
+        <div class="card project-card">
+            <h3>Subdomain Takeover</h3>
+            <p><strong>Sumulated Subdomain takeover</strong></p>
+            <p>Used Recon Tool to discover Subdomain and taking over Using DNSmasq for takeover.</p>
+            <div class="tech-tags">
+                <span class="tag">DNSx</span>
+                <span class="tag">DNSmasq</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== CERTIFICATIONS ==================== -->
+<section id="certifications">
+    <h2>Certifications</h2>
+    <div class="grid grid-2">
+        <div class="cert-item">
+            <div class="cert-icon">TCM</div>
+            <div class="cert-details">
+                <h4>Pratical Ethical Hacking</h4>
+                <p>TCM</p>
+                <small>Issued: March 2024 • No Expiration</small>
+            </div>
+        </div>
+
+        <div class="cert-item">
+            <div class="cert-icon">CISCO</div>
+            <div class="cert-details">
+                <h4>Network Defense</h4>
+                <p>CISO Network Defense</p>
+                <small>Issued: January 2024 • No Expiration</small>
+            </div>
+        </div>
+
+        <div class="cert-item">
+            <div class="cert-icon">TCM</div>
+            <div class="cert-details">
+                <h4>Pratical Web Hacking</h4>
+                <p>TCM</p>
+                <small>Issued: June 2024 • No Expiration</small>
+            </div>
+        </div>
+
+        <div class="cert-item">
+            <div class="cert-icon">THM</div>
+            <div class="cert-details">
+                <h4>Tryhackme</h4>
+                <p>Jr Penetration Tester</p>
+                <small>Issued: 2025 • No Expiration</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== RESUME ==================== -->
+<section id="resume">
+    <h2>CV</h2>
+    <div class="card">
+        <a href="D:/website/Pratick%20Khadka%20CV.pdf" download class="btn">Download CV (PDF)</a>
+        <p style="font-size:.9rem; margin-top:.5rem;">
+        <h3 style="margin-top:2rem;">Summary</h3>
+        <p class="summary" style="font-style:italic;">
+            Aspiring VAPT professional with a background in Cybersecurity and Computer Networking, concentrating on Vulnerability Assessment and Web Application Penetration Testing. Passionate about leveraging technical skills to detect vulnerabilities and mitigate risks, while contributing to team success and continuously developing advanced security capabilities through practical experience.
+
+        <!-- Education -->
+        <h3>Education</h3>
+            <div class="skill-item">
+                <strong>BSc (Hons) Networking and IT Security</strong><br>
+                <em>2022 – 2025</em><br>
+                London Metropolitan University – <em>Computer Networking and Security</em>
+            </div>
+            <div class="skill-item">
+                <strong>School Leaving Certificate</strong><br>
+                <em>2020 – 2022</em><br>
+                Chandbagh High School – <em>Management (Computer Science, Mathematics)</em>
+            </div>
+        </div>
+
+        <!-- Skills -->
+        <h3>Skills</h3>
+        <div class="grid grid-3">
+            <div class="skill-item">
+                <strong>Security Operation Center </strong><br>Wazuh, Threat Modeling, Log Analysis 
+            </div>
+            <div class="skill-item"><strong>Network Security & Firewalls</strong><br>Design, implementation, monitoring</div>
+            <div class="skill-item"><strong>Ethical Hacking & Pen‑Testing</strong><br>OWASP Top‑10, vulnerability exploitation</div>
+            <div class="skill-item"><strong>Incident Response & Forensics</strong><br>Digital evidence handling</div>
+            <div class="skill-item"><strong>Python • Bash • Wireshark</strong><br>Automation & analysis</div>
+        </div>
+
+        <!-- Experience -->
+        <h3>Professional Experience</h3>
+        <div class="grid grid-2">
+            <div class="skill-item">
+                <strong>Social Media Intern - Vairav Tech</strong><br><em>Mar 2025 - Jul 2025</em>
+                <ul style="margin: .6rem 0;">
+                    <li>Strategic to Control and Reduce Social Media Post</li>
+                    <li>Reporting illegal Groups and Post</li>
+                    <li>Using OSINT and Social Engineering to Discover Assets</li>
+                </ul>
+            </div>
+            <div class="skill-item">
+                <strong>Networking and Security Intern – CloudSewa</strong><br><em>Nov 2024 - Feb 2025</em>
+                <ul style="margin: .6rem 0;">
+                    <li>Testing Web Application and Securing Code</li>
+                    <li>Testing and Hosting AWS Buckets</li>
+                    <li>Securing Network using Firewalls and VPN</li>
+                    <li>Troubleshooting Network</li>
+                </ul>
+            </div>
+            <div class="skill-item">
+                <strong>Networking Operation Center Intern</strong><br><em>Jan 2024 – Aug 2025</em>
+                <ul style="margin: .6rem 0;">
+                    <li>Configuration of Network Switch and Router</li>
+                    <li>Troubleshooting and Supporting Network</li>
+                    <li>Design and Plan Network Topology</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== CONTACT ==================== -->
+<section id="contact">
+    <h2>Contact</h2>
+    <div class="card">
+        <h3 style="margin-top:0;">Get in Touch</h3>
+        <div class="contact-list">
+            <div class="contact-item"><i class="fas fa-globe"></i> <a href="https://pratickkhadka.com.np" target="_blank">www.pratickkhadka.com.np</a></div>
+            <div class="contact-item"><i class="fas fa-phone"></i> <a href="tel:+9779861402218">+977 9861402218</a></div>
+            <div class="contact-item"><i class="fas fa-map-marker-alt"></i> Kathmandu, Nepal</div>
+            <div class="contact-item"><i class="fab fa-linkedin"></i> <a href="www.linkedin.com/in/pratick-khadka-16a157284" target="_blank">linkedin.com/in/pratickkhadka</a></div>
+            <div class="contact-item"><i class="fas fa-envelope"></i> <a href="mailto:pratick332khadka@gmail.com">pratick332khadka@gmail.com</a></div>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<script>
+    // Mobile menu toggle
+    const toggle = document.getElementById('mobile-menu');
+    const nav = document.getElementById('main-nav');
+    toggle.addEventListener('click', () => nav.classList.toggle('active'));
+
+    // Smooth scroll
+    document.querySelectorAll('nav a').forEach(a => {
+        a.addEventListener('click', e => {
+            e.preventDefault();
+            const target = document.querySelector(a.getAttribute('href'));
+            target.scrollIntoView({ behavior: 'smooth' });
+            if (window.innerWidth <= 768) nav.classList.remove('active');
+        });
+    });
+</script>
+
+</body>
+</html>
